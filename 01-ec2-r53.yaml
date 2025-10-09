@@ -20,7 +20,7 @@
       image_id: "{{ ami_id }}"
       tags:
         name: "{{ item }}"
-    loop: "{{ instances }}"
+    loops: "{{ instances }}"
     register: ec2_output         # register key word take output.
 
 
