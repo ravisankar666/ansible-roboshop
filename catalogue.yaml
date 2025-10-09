@@ -6,7 +6,7 @@
     ansible.builtin.command: dnf module disable nodejs -y
 
   - name: enable nodejs:20
-    ansible.builtin.command:   dnf module disable nodejs -y
+    ansible.builtin.command:   dnf module enable nodejs:20 -y
 
   - name: install nodejs
     ansible.builtin.package:
@@ -20,11 +20,21 @@
      system: true
      shell: /sbin/nologin
      home: /app
+  # safe to remove directory, because 2nd time if we run it will download freshly. no error if does not exist
+  - name: remove app directory 
+    ansible.builtin.file:
+     path: /app
+     state: absent
 
   - name: create app directory   
     ansible.builtin.file:
      state: directory
      path: /app
+
+  - name: Remove file (delete file)
+    ansible.builtin.file:
+      path: /tmp/catalogue.zip
+      state: adsent
   
   - name: download  catalogue application
     ansible.builtin.get_url:
@@ -78,8 +88,10 @@
   - name: daemon reload enable and start
     ansible.builtin.systemd_service:
       name: catalogue
-      enabled: yes
+      enabled: true
       state: started
+      daemon_reload: true
 
 
+  
 
