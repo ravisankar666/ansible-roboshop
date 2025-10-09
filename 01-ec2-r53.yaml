@@ -12,16 +12,16 @@
 
 
   tasks:
-  - name: create ec2 instances
+  - name: create ec2 instance
     amazon.aws.ec2_instance:
       name: "{{ item }}"
       instance_type: t3.micro
       security_group: "{{ sg_id }}"
       image_id: "{{ ami_id }}"
       tags:
-        name: "{{ item }}"
-    loops: "{{ instances }}"
-    register: ec2_output         # register key word take output.
+        Name: "{{ item }}"
+    loop: "{{ instances }}"
+    register: ec2_output  # register key word take output.
 
 
   # - name:  print the ec2_output
