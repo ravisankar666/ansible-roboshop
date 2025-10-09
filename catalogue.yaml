@@ -56,25 +56,30 @@
      name: mongodb-mongosh
      state: present
   
-  # - name: connnect to mongodb catalogue
-  #   ansible.builtin.command: mongosh mongodb.daws86.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
-  #   register: catalogue_output
-
-  - name: evaluate cataalogue database
-    community.mongodb.mongodb_shell:
-      login_host: mongodb.daws86s.fun
-      eval: db.getMongo().getDBNames().indexOf('catalogue')                      #pip3.9 install cryptography or pip3.9 install --upgrade ansible community.mongodb pymongo
+  - name: connnect to mongodb catalogue
+    ansible.builtin.command: mongosh mongodb.daws86.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
     register: catalogue_output
+
+  # - name: evaluate cataalogue database
+  #   community.mongodb.mongodb_shell:
+  #     login_host: mongodb.daws86s.fun
+  #     eval: db.getMongo().getDBNames().indexOf('catalogue')                      #pip3.9 install cryptography or pip3.9 install --upgrade ansible community.mongodb pymongo
+  #   register: catalogue_output
  
 
-  - name: print catalogue output
-    ansible.builtin.debug:
-     msg: "print catalogue output : {{ catalogue_output }}"  
+  # - name: print catalogue output
+  #   ansible.builtin.debug:
+  #    msg: "print catalogue output : {{ catalogue_output }}"  
     
+  - name: load products into mongodb
+    ansible.builtin.shell: mongosh --host mongodb.daws86.fun </app/db/master-data.js
+    when: catalogue_output.stdout | int < 0
 
-
-
-
+  - name: daemon reload enable and start
+    ansible.builtin.systemd_service:
+      name: catalogue
+      enabled: true
+      state: started
 
 
 
