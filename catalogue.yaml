@@ -43,7 +43,7 @@
 
   - name:  extract catalogue application archive                                                                          #unarchive mean unzip and archive mean zip
     ansible.builtin.unarchive:
-     src: unzip /tmp/catalogue.zip
+     src: /tmp/catalogue.zip
      dest: /app
      remote_src: yes
 
