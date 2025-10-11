@@ -34,7 +34,7 @@
   - name: Remove file (delete file)
     ansible.builtin.file:
       path: /tmp/cart.zip
-      state: adsent
+      state: absent
   
   - name: download  cart application
     ansible.builtin.get_url:
