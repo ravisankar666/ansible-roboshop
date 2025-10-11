@@ -13,7 +13,7 @@
   - name:  create roboshop system user
     ansible.builtin.user:
      name: roboshop
-     state: Roboshop System user
+     comment: Roboshop System user
      system: true
      shell: /sbin/nologin
      home: /app
@@ -32,7 +32,7 @@
   - name: Remove file (delete file)
     ansible.builtin.file:
       path: /tmp/shipping.zip
-      state: adsent
+      state: absent
   
   - name: download  shipping application
     ansible.builtin.get_url:
