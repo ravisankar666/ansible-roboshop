@@ -34,7 +34,7 @@
   - name: Remove file (delete file)
     ansible.builtin.file:
       path: /tmp/catalogue.zip
-      state: adsent
+      state: absent
   
   - name: download  catalogue application
     ansible.builtin.get_url:
