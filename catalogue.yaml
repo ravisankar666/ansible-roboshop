@@ -59,7 +59,7 @@
   - name: copy mango repo
     ansible.builtin.copy:
      src: catalogue.service
-     dest: /etc/yum.repo.d/catalogue.service
+     dest: /etc/yum.repos.d/catalogue.service
 
   - name: install mongodb client
     ansible.builtin.package:
