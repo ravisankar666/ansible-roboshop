@@ -7,6 +7,7 @@
    sg_id:   "sg-00c2d6548a23412ff" # replace security group id
    zone_id: "Z0043313JVXOCUVVVC7F"  # replace with hosted_zone id
    domain_name: "daws86.fun"
+   subnet_id: "subnet-0b082395d4b60f436"
   #  instances:
    # we can pass instances through command line using -e
    #  - mongodb
@@ -17,7 +18,8 @@
     amazon.aws.ec2_instance:
       name: "{{ item }}"
       instance_type: t3.micro
-      region: us-east-1
+      region: us-east-1          # ✅ Add region
+      vpc_subnet_id: "{{ subnet_id }}"   # ✅ Required in most cases
       security_group: "{{ sg_id }}"
       image_id: "{{ ami_id }}"
       tags:
